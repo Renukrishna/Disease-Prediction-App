@@ -1,0 +1,3 @@
+.vscode
+service/venv/*
+service/__pycache*
