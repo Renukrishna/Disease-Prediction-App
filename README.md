@@ -19,7 +19,7 @@ consequently any changes will require the later 2 command to be run. Else only t
 Now visit the localhost:3000 to ensure the ui is up and running.
 
 ## Starting the flask app.
-
+cd into service directory and start up a new shell instance.
 Make sure you have a virtual environment of python and source into it.
 Install the requirements using ``` pip install -r requirements.txt ```
 
