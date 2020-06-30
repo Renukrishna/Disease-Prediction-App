@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify, make_response
 from flask_restplus import Api, Resource, fields
-from sklearn.externals import joblib
+try:
+  from sklearn.externals import joblib
+except:
+  import joblib
 import pandas as pd
 import numpy as np
 import nltk
