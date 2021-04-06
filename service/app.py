@@ -17,6 +17,10 @@ from nltk.tokenize import word_tokenize
 nltk.download('punkt') 
 SENT_DETECTOR = nltk.data.load('tokenizers/punkt/english.pickle')
 
+def hasNumbers(inputString):
+  '''Check if the string has numbers in it'''
+  return any(char.isdigit() for char in inputString)
+
 def cleanAndConvertTrainingDataSet(filename):
 
     #list to contain data
@@ -62,7 +66,10 @@ def trainAndTest(testData):
         This function takes symptoms as input and predicts the disease
         params: testData(type:string):a string as symptoms seperated by space
         return: prediction as string
-  ''' 
+  '''
+  
+  if hasNumbers(testData):
+    raise ValueError('Inconsistent input format')
   testData = testData
   tokenizedTestData = word_tokenize(testData)
 
@@ -189,6 +196,7 @@ model = app.model('Prediction params',
 
 # classifier = joblib.load('classifier.joblib')
 
+
 @name_space.route("/")
 class MainClass(Resource):
 
@@ -209,8 +217,8 @@ class MainClass(Resource):
 			# symptoms_list = symptoms_string.split()
 			try:
 				prediction = trainAndTest(symptoms_string)
-			except:
-				prediction = 'error in prediction'
+			except Exception as e:
+			  prediction = '{}'.format(e)
 			# prediction = classifier.predict(data)
 			response = jsonify({
 				"statusCode": 200,
